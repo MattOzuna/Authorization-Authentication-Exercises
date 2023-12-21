@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}
+Login
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="display-1 text-center">Login</h1>
+    <div class="mx-auto w-50">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+
+            <div>
+                {{form.username.label}}
+                {{form.username(class_="form-control")}}
+
+                {% for error in form.username.error %}
+                <span class="form-text text-danger">
+                    {{ error }}
+                </span>
+                {% endfor %}
+
+            </div>
+            <div>
+                {{form.password.label}}
+                {{form.password(class_="form-control")}}
+            </div>
+            <div>
+                <button class="btn btn-primary mt-3">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
