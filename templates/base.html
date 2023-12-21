@@ -7,6 +7,27 @@
     <title>{% block title %}{%endblock%}</title>
 </head>
 <body>
+    <nav class="navbar bg-dark border-bottom border-body">
+        <div class="container">
+          <a href="/" class="navbar-brand text-light">Autherization and Authentication Exercises</a>
+          <div class="">
+            <ul class="nav">
+              {% if session['username'] %}
+              <li class="nav-item">
+                <a class="nav-link pr-3 text-light" href="/logout">Logout</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link pr-3 text-light" href="/login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-light" href="/register">Register</a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </nav>
     {% block content %}{% endblock%}
 </body>
 </html>

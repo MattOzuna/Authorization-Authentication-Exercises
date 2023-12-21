@@ -34,6 +34,7 @@ def registration():
     POST route receives form data and adds to db
     if username or email are taken is taken redirects to
     '''
+
     form = AddRegisterForm()
 
     if form.validate_on_submit():
@@ -55,6 +56,12 @@ def registration():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    '''
+    Get route generates a form with WTF login form
+    POST route takes the username and finds a user in the db that matches.
+    If it is found, it check the password to see if it matches.
+    If it matches the username is added to flask session and the user is redirected to secret route
+    '''
     form = AddLoginForm()
     if form.validate_on_submit():
         user = User.validateUser(form)
@@ -66,9 +73,10 @@ def login():
 
     return render_template('login.html', form=form)
 
+
 @app.route('/logout')
 def logout():
-    session.pop['username']
+    session.pop('username')
     flash('You are logged out')
-    return redirect('/')
+    return redirect('/login')
 
