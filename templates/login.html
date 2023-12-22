@@ -8,9 +8,9 @@ Login
     <div class="mx-auto w-50">
 
         {% for msg in get_flashed_messages() %}
-        <small class="text-info">{{msg}}</small>
+        <small class="text-danger">{{msg}}</small>
         {% endfor %}
-        
+
         <form method="POST">
             {{ form.hidden_tag() }}
 

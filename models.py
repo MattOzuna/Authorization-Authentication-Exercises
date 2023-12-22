@@ -12,14 +12,10 @@ def connect_db(app):
 
 class User(db.Model):
     __tablename__ = "users"
-
-    id = db.Column(db.Integer, 
-                   primary_key=True,
-                   autoincrement=True)
     
     username = db.Column(db.Text,
                          nullable = False,
-                         unique=True)
+                         primary_key=True)
     
     password = db.Column(db.Text,
                          nullable=False)
@@ -59,3 +55,47 @@ class User(db.Model):
             return user
         
         return False
+    
+    
+class Feedback(db.Model):
+    __tablename__ = 'feedback'
+
+    id = db.Column(db.Integer, 
+                   primary_key=True,
+                   autoincrement=True)
+    
+    title = db.Column(db.String(100),
+                      nullable=False)
+    
+    content = db.Column(db.Text(),
+                        nullable=False)
+    
+    username = db.Column(db.Text,
+                         db.ForeignKey('users.username'),
+                         nullable=False)
+    
+    user = db.relationship('User', backref='feedback', cascade = "all,delete")
+
+    @classmethod
+    def addNewFeedback(cls, form, user):
+        title = form.title.data
+        content = form.content.data
+        username = user.username
+
+        new_feedback = cls(title=title,
+                           content=content,
+                           username=username,
+                           user=user)
+        
+        db.session.add(new_feedback)
+        db.session.commit()
+
+    @classmethod
+    def updateFeedback(cls, form, feedback):
+        feedback.title = form.title.data
+        feedback.content = form.content.data
+
+        db.session.commit()
+
+
+
