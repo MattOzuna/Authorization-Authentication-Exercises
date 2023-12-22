@@ -83,6 +83,7 @@ def logout():
     flash('You are logged out')
     return redirect('/login')
 
+
 @app.route('/users/<username>/delete', methods=['POST'])
 def deleteUser(username):
     if not session.get('username'):
@@ -95,7 +96,7 @@ def deleteUser(username):
     user = User.query.filter_by(username=username).one_or_404()
     feedback = user.feedback
     db.session.delete(user)
-    
+
     for feedback in feedback:
         db.session.delete(feedback)
     db.session.commit()
